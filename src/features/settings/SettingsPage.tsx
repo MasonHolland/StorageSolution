@@ -50,6 +50,30 @@ export function SettingsPage() {
     }
   }
 
+  async function loadDemo() {
+    if (!confirm('Replace ALL data on this device with demo data?')) return
+    setBusy(true)
+    try {
+      const { loadDemoData } = await import('../demo/demoData')
+      const r = await loadDemoData()
+      toast(`Loaded ${r.boxes} boxes and ${r.items} items`)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  async function clearAll() {
+    if (!confirm('Delete ALL boxes, items, photos and spaces on this device? Download a backup first if you need it.')) return
+    setBusy(true)
+    try {
+      const { clearAllData } = await import('../demo/demoData')
+      await clearAllData()
+      toast('All data cleared')
+    } finally {
+      setBusy(false)
+    }
+  }
+
   if (!settings) return null
 
   return (
@@ -110,6 +134,17 @@ export function SettingsPage() {
           {SUGGESTERS.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
         </select>
         <p className="small muted" style={{ margin: 0 }}>Automatic item recognition will be added here later. For now, items are typed in by hand.</p>
+      </section>
+
+      <section className="card stack-v">
+        <h2 style={{ margin: 0 }}>Demo data</h2>
+        <p className="small muted" style={{ margin: 0 }}>
+          Fill the app with a sample household (two storage spaces, 21 boxes and drawers) to try things out. This replaces everything on this device.
+        </p>
+        <div className="btn-row">
+          <button disabled={busy} onClick={() => void loadDemo()}>Load demo data</button>
+          <button className="btn-danger" disabled={busy} onClick={() => void clearAll()}>Clear all data</button>
+        </div>
       </section>
     </main>
   )

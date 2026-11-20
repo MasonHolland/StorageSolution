@@ -2,6 +2,8 @@
 
 A free, offline-first phone app for packing a house into boxes and finding things again later.
 
+**▶ Try it: [masonholland.github.io/StorageSolution](https://masonholland.github.io/StorageSolution/)**. Open it on your phone and tap **Explore with demo data** to load a sample household: two storage spaces, 21 boxes and drawers, and about 80 items. Search for "waffle" or "tent", then tap **Locate**. You can load or clear the demo at any time in **Settings → Demo data**.
+
 ## The problem
 
 Packing up a home for a move or for long-term storage is a hassle, and it's hard to stay organised:
@@ -114,6 +116,8 @@ If the page doesn't load, allow Node.js through your computer's firewall for pri
 | `npm run lint` | Lint the code |
 
 ## Deploy (free)
+
+This repo deploys itself: every push to `main` runs the unit tests, builds the app and publishes it to GitHub Pages (`.github/workflows/deploy.yml`). To deploy a fork, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
 
 `npm run build` produces a static site in `dist/` that runs on any static host. Free options include [Cloudflare Pages](https://pages.cloudflare.com/), [GitHub Pages](https://pages.github.com/) and [Netlify](https://www.netlify.com/). Use build command `npm run build` and output folder `dist`. These hosts all provide HTTPS, which the camera and offline support need.
 

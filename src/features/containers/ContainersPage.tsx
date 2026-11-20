@@ -51,9 +51,14 @@ export function ContainersPage() {
         <div className="empty card">
           <h2>No boxes yet</h2>
           <p>Add a box, snap a photo of what goes in it, and list the items. You can place it in a storage space later.</p>
-          <Link className="btn btn-primary" to="/c/new">
-            <PlusIcon width={18} height={18} /> Add your first box
-          </Link>
+          <div className="btn-row" style={{ justifyContent: 'center' }}>
+            <Link className="btn btn-primary" to="/c/new">
+              <PlusIcon width={18} height={18} /> Add your first box
+            </Link>
+            <button onClick={() => void import('../demo/demoData').then((m) => m.loadDemoData())}>
+              Explore with demo data
+            </button>
+          </div>
         </div>
       ) : (
         <>
