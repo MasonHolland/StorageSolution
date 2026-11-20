@@ -61,7 +61,7 @@ All open-source and free.
 
 ### Prerequisites
 
-- **[Node.js](https://nodejs.org/) 22 LTS or newer** (includes npm). Check with `node -v`.
+- **[Node.js](https://nodejs.org/) 26 LTS** (includes npm). Check with `node -v`. The project's version is pinned in `.nvmrc`, so with [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm) you can just run `nvm use` or `fnm use`. Node 22.12 or newer also works.
 - **[Git](https://git-scm.com/)** to download the code.
 
 ### 1. Download
