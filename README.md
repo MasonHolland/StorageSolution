@@ -65,11 +65,11 @@ All open-source and free.
 ### 1. Download
 
 ```bash
-git clone <repository-url> StorageSolution
+git clone https://github.com/MasonHolland/StorageSolution.git
 cd StorageSolution
 ```
 
-Without Git, download the project as a ZIP from the repository page, unzip it, and open a terminal in that folder.
+Without Git, download the ZIP from the [repository page](https://github.com/MasonHolland/StorageSolution) (**Code → Download ZIP**), unzip it, and open a terminal in that folder.
 
 ### 2. Install dependencies
 
