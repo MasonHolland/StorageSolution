@@ -1,6 +1,6 @@
 import { useRef, useState, type PointerEvent } from 'react'
 import type { Container, Space, Stack } from '../../db/schema'
-import { clampToSpace, overlaps, snap, stackFootprint, textColorFor, type Rect } from './layoutMath'
+import { clampToSpace, fitText, overlaps, snap, stackFootprint, textColorFor, type Rect } from './layoutMath'
 
 export interface StackWithBoxes {
   stack: Stack
@@ -121,11 +121,11 @@ export function FloorPlanView({ space, stacks, selectedId, highlightStackId, onS
               ))}
               <text className="svg-label" x={r.x + r.w / 2} y={r.y + r.h / 2 - 2} textAnchor="middle"
                 fill={top ? textColorFor(top.color) : 'var(--muted)'} style={{ fontSize: 11 * Math.min(1.6, fontScale) }}>
-                {stack.label.replace(/^Stack /, 'S')}
+                {fitText(stack.label.replace(/^Stack /, 'S'), r.w, 11 * Math.min(1.6, fontScale))}
               </text>
               <text className="svg-label" x={r.x + r.w / 2} y={r.y + r.h / 2 + 11 * Math.min(1.6, fontScale)} textAnchor="middle"
                 fill={top ? textColorFor(top.color) : 'var(--muted)'} style={{ fontSize: 9 * Math.min(1.6, fontScale), fontWeight: 400 }}>
-                {boxes.length} box{boxes.length === 1 ? '' : 'es'}
+                {fitText(`${boxes.length} box${boxes.length === 1 ? '' : 'es'}`, r.w, 9 * Math.min(1.6, fontScale))}
               </text>
             </g>
           )

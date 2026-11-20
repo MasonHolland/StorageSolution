@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  clampToSpace, findFreeSpot, fitsInSpace, overlaps, snap,
+  clampToSpace, findFreeSpot, fitsInSpace, fitText, overlaps, snap,
   stackFootprint, stackHeights, textColorFor, toWorld,
 } from './layoutMath'
 
@@ -34,6 +34,10 @@ describe('layoutMath', () => {
   })
   it('finds a free spot next to taken ones', () => {
     expect(findFreeSpot({ widthCm: 200, depthCm: 100 }, [{ x: 0, y: 0, w: 45, h: 45 }])).toEqual({ x: 50, y: 0 })
+  })
+  it('shortens labels that are too wide', () => {
+    expect(fitText('Back middle', 200, 10)).toBe('Back middle')
+    expect(fitText('Front left', 30, 10)).toBe('Fro…')
   })
   it('chooses readable text colour', () => {
     expect(textColorFor('#2f3237')).toBe('#ffffff')

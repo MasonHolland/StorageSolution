@@ -1,5 +1,5 @@
 import type { Container, Space, Stack } from '../../db/schema'
-import { stackFootprint, stackTotalHeight, textColorFor, toWorld } from './layoutMath'
+import { fitText as fit, stackFootprint, stackTotalHeight, textColorFor, toWorld } from './layoutMath'
 
 interface Props {
   space: Space
@@ -76,8 +76,3 @@ export function StackFrontView({ space, stack, boxes, highlightId, onOpen }: Pro
   )
 }
 
-/** Truncates text to roughly fit a width, assuming ~0.6em per character. */
-function fit(text: string, width: number, fontSize: number): string {
-  const max = Math.max(3, Math.floor((width - 6) / (fontSize * 0.6)))
-  return text.length > max ? text.slice(0, max - 1) + '…' : text
-}

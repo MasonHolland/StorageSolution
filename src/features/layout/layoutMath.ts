@@ -109,3 +109,9 @@ export function textColorFor(hex: string): string {
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
   return luminance > 0.55 ? '#1d1d1d' : '#ffffff'
 }
+
+/** Shortens text with an ellipsis so it roughly fits a width, assuming ~0.6em per character. */
+export function fitText(text: string, width: number, fontSize: number): string {
+  const max = Math.max(3, Math.floor((width - 6) / (fontSize * 0.6)))
+  return text.length > max ? text.slice(0, max - 1) + '…' : text
+}
