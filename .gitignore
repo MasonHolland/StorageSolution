@@ -26,3 +26,6 @@ dist-ssr
 # Playwright
 test-results
 playwright-report
+
+# Saved Claude Code chat transcripts (local only)
+.chats
