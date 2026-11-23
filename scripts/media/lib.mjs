@@ -110,6 +110,14 @@ export async function launch({ colorScheme = 'light', flagFont = false, extraCss
     });
   }, VIEWPORT.width);
 
+  // The Expo apps' web demo shows a banner on phones and a phone frame on desktops (WebDemo.web.tsx).
+  // This flag turns both off so the README media shows just the app. Vite apps ignore it.
+  await context.addInitScript(() => {
+    try {
+      localStorage.setItem('webDemo.capture', '1');
+    } catch {}
+  });
+
   // React Native Web: it computes the window width as visualViewport.width * scale (on a real
   // phone the scale is 1), and reads it once at start-up, so report 1 and send a resize.
   await context.addInitScript(() => {
