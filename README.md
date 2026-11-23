@@ -4,6 +4,11 @@ A free, offline-first phone app for packing a house into boxes and finding thing
 
 **▶ Try it: [masonholland.github.io/StorageSolution](https://masonholland.github.io/StorageSolution/)**. Open it on your phone and tap **Explore with demo data** to load a sample household: two storage spaces, 21 boxes and drawers, and about 80 items. Search for "waffle" or "tent", then tap **Locate**. You can load or clear the demo at any time in **Settings → Demo data**.
 
+<p align="center">
+  <img src="docs/media/demo.gif" width="300" alt="Demo: loading the sample household, opening a box, searching for the waffle iron, and locating its box on the stack and floor plan">
+</p>
+<p align="center"><sub><a href="docs/media/demo.mp4">Full-quality video (MP4)</a></sub></p>
+
 ## The problem
 
 Packing up a home for a move or for long-term storage is a hassle, and it's hard to stay organised:
@@ -31,6 +36,21 @@ StorageSolution logs every box as you pack it and records where it ends up:
 
 **It costs nothing to run.** Everything is stored on your device, with no accounts, servers, paid APIs or tracking.
 
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/media/01-boxes.png" width="230" alt="Box list with status filters and colour-matched box icons"><br><sub>Boxes</sub></td>
+    <td align="center"><img src="docs/media/02-box.png" width="230" alt="Box detail for B-001 Pots &amp; pans"><br><sub>A box</sub></td>
+    <td align="center"><img src="docs/media/03-search.png" width="230" alt="Search for 'wafle' finding the waffle iron"><br><sub>Search (with a typo)</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/media/04-stack-front.png" width="230" alt="Stack front view with B-001 highlighted at the bottom"><br><sub>Locate: the box in its stack</sub></td>
+    <td align="center"><img src="docs/media/05-floor-plan.png" width="230" alt="To-scale floor plan of a storage unit"><br><sub>Floor plan</sub></td>
+    <td align="center"><img src="docs/media/06-labels.png" width="230" alt="Printable QR labels"><br><sub>QR labels</sub></td>
+  </tr>
+</table>
+
 ### Planned
 
 - **Item suggestions from photos:** recognise items in a photo automatically. The hook for this is already built (`src/features/suggest/suggester.ts`). Options are an on-device model, Google Gemini's free tier, or a user's own Claude API key.
@@ -56,6 +76,7 @@ All open-source and free.
 | Unit tests | [Vitest](https://vitest.dev/) and [fake-indexeddb](https://github.com/dumbmatter/fakeIndexedDB) |
 | End-to-end tests | [Playwright](https://playwright.dev/) on a phone-sized viewport |
 | Lint | [oxlint](https://oxc.rs/) |
+| README media | [Playwright](https://playwright.dev/) and [ffmpeg-static](https://github.com/eugeneware/ffmpeg-static) (`npm run media`) |
 
 ## Run it locally
 
@@ -114,12 +135,17 @@ If the page doesn't load, allow Node.js through your computer's firewall for pri
 | `npm run build` | Production build into `dist/` |
 | `npm run preview` | Serve the production build at http://localhost:4173 (offline mode works here) |
 | `npm run lint` | Lint the code |
+| `npm run media` | Re-record the screenshots and demo video in `docs/media/` (see below) |
 
 ## Deploy (free)
 
 This repo deploys itself: every push to `main` runs the unit tests, builds the app and publishes it to GitHub Pages (`.github/workflows/deploy.yml`). To deploy a fork, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
 
 `npm run build` produces a static site in `dist/` that runs on any static host. Free options include [Cloudflare Pages](https://pages.cloudflare.com/), [GitHub Pages](https://pages.github.com/) and [Netlify](https://www.netlify.com/). Use build command `npm run build` and output folder `dist`. These hosts all provide HTTPS, which the camera and offline support need.
+
+## Screenshots and demo video
+
+`npm run media` records everything in `docs/media/` with Playwright in a phone-sized Chromium. It starts the dev server if it isn't already running, loads the demo data in a fresh browser profile (your own data isn't touched), and writes PNG screenshots, `demo.mp4`, `demo.gif` (used above) and `demo-poster.jpg`. Use `npm run media -- --only shots` or `--only video` to do half. The steps are in `scripts/media/capture.mjs`.
 
 ## Project structure
 
@@ -140,6 +166,8 @@ src/
     suggest/     Interface for photo → item suggestions (not yet implemented)
   lib/         Box codes, image compression, dominant colour, storage persistence
 e2e/           Playwright end-to-end tests
+scripts/media/ Records the README screenshots and video
+docs/media/    Screenshots and demo video used in this README
 ```
 
 The data model is **Space → Stack → Container → Item / Photo**. All sizes are in centimetres. A box's height off the floor isn't stored: it's calculated from the boxes below it in the stack.
